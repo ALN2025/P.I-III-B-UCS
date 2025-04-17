@@ -1,0 +1,239 @@
+===============================================================
+    RELATÓRIO DE DESENVOLVIMENTO - PROJETO INTEGRADOR III-B
+    Sistema de Gerenciamento Escolar (SGE) v1.0.1
+===============================================================
+
+-----------------------------------------------------------------
+EQUIPE DE DESENVOLVIMENTO - GRUPO 11
+-----------------------------------------------------------------
+
+- Anderson: Desenvolvedor principal e arquiteto do sistema. Responsável 
+  pela estrutura do código, padrões de design e integração entre os 
+  componentes.
+
+- Monique: Desenvolvedora da interface gráfica e responsável pela 
+  experiência do usuário (UX/UI).
+
+- Cristiane: Implementação das classes de domínio (Aluno e Turma) e 
+  das funcionalidades de validação.
+
+- Emily: Responsável pelo tratamento de exceções e pela implementação 
+  dos métodos toString() e equals().
+
+- Eduardo: Desenvolvedor das estruturas de dados personalizadas e 
+  algoritmos de ordenação.
+
+- Laura: Testes, documentação do código e garantia de qualidade.
+
+- Jardel: Implementação das consultas, relatórios e análise de requisitos.
+
+- Franciele: Desenvolvimento da lógica de negócios e implementação do 
+  sistema de matrículas e verificação de compatibilidade de idade.
+191.96.81.22
+-----------------------------------------------------------------
+RESUMO DO PROJETO
+-----------------------------------------------------------------
+
+O Sistema de Gerenciamento Escolar (SGE) é uma aplicação desenvolvida 
+em Java que permite a gestão completa de alunos, turmas e matrículas 
+em uma instituição de ensino. O sistema possui uma interface gráfica 
+intuitiva, utilizando componentes Swing, organizada em abas que 
+facilitam a navegação entre diferentes funcionalidades.
+
+-----------------------------------------------------------------
+IMPLEMENTAÇÃO DAS EXIGÊNCIAS DA SEGUNDA ETAPA
+-----------------------------------------------------------------
+
+1. SOBRESCRITA DOS MÉTODOS toString() E equals()
+
+   * Classe Aluno:
+     - O método toString() foi implementado para retornar uma 
+       representação formatada do aluno, incluindo nome, CPF formatado, 
+       data de nascimento e idade.
+     - O método equals() foi implementado para comparar alunos pelo 
+       CPF, considerando que este é um identificador único.
+     - Foi adicionado também o método hashCode() para manter a 
+       consistência com a implementação de equals().
+
+   * Classe Turma:
+     - O método toString() foi implementado para retornar as informações 
+       da turma, incluindo código, etapa de ensino, ano e situação das 
+       vagas.
+     - O método equals() foi implementado para comparar turmas pelo 
+       código, etapa de ensino e ano.
+     - O método hashCode() também foi implementado para manter a 
+       consistência.
+
+   * Uso nas consultas:
+     - Os métodos toString() são utilizados para exibir informações 
+       de alunos e turmas nos relatórios e consultas do sistema.
+     - O método equals() é utilizado para verificar duplicidade de 
+       alunos e para operações como remoção e matrícula.
+
+2. TRATAMENTO DE EXCEÇÕES
+
+   * Implementação da ExcecaoDeAlunoJaExistente:
+     - Foi criada uma classe de exceção personalizada que estende 
+       Exception para tratar casos específicos de tentativa de inclusão 
+       de alunos duplicados.
+     - A exceção possui três construtores para diferentes contextos de uso.
+
+   * Lançamento da exceção:
+     - Os métodos incluirNoInicio() e incluirNoFim() da classe 
+       ListaDeAlunos verificam se o aluno já existe na lista usando o 
+       método equals() e lançam a exceção quando necessário.
+
+   * Tratamento da exceção:
+     - Na interface gráfica (InterfaceGrafica.java), as exceções são 
+       tratadas em blocos try-catch, exibindo mensagens informativas 
+       ao usuário através de diálogos.
+
+-----------------------------------------------------------------
+ESTRUTURA DO PROJETO
+-----------------------------------------------------------------
+
+O projeto segue uma arquitetura orientada a objetos bem definida:
+
+1. Classes de Domínio:
+   - Aluno: Representa um estudante com atributos como nome, CPF, 
+     endereço e data de nascimento.
+   - Turma: Representa uma turma escolar com código, etapa de ensino, 
+     ano e gerenciamento de vagas.
+
+2. Estruturas de Dados:
+   - ListaDeAlunos: Implementa uma estrutura de dados personalizada 
+     para gerenciar alunos, com métodos para inclusão, remoção, 
+     ordenação e busca.
+
+3. Interface com o Usuário:
+   - InterfaceGrafica: Implementa a interface do usuário com 
+     componentes Swing, organizados em abas para diferentes 
+     funcionalidades.
+
+4. Exceções Personalizadas:
+   - ExcecaoDeAlunoJaExistente: Tratamento específico para 
+     tentativas de inclusão de alunos duplicados.
+
+-----------------------------------------------------------------
+FUNCIONALIDADES IMPLEMENTADAS
+-----------------------------------------------------------------
+
+1. Gestão de Alunos:
+   - Cadastro de novos alunos com validação de dados
+   - Exclusão de alunos
+   - Listagem de alunos em ordem alfabética
+
+2. Gestão de Turmas:
+   - Criação de turmas com diferentes etapas de ensino
+   - Gerenciamento de vagas
+   - Exclusão de turmas
+
+3. Gestão de Matrículas:
+   - Matrícula de alunos em turmas
+   - Transferência entre turmas
+   - Cancelamento de matrículas
+   - Verificação de compatibilidade de idade com a etapa de ensino
+
+4. Consultas e Relatórios:
+   - Listagem de alunos por turma
+   - Verificação de alunos fora da faixa etária ideal
+   - Listagem de todas as turmas com informações detalhadas
+
+-----------------------------------------------------------------
+DIFICULDADES ENCONTRADAS
+-----------------------------------------------------------------
+
+Durante o desenvolvimento do sistema, enfrentamos alguns desafios:
+
+1. Implementação adequada do método equals() para garantir a comparação 
+   correta de objetos, especialmente considerando que diferentes 
+   atributos podem ser relevantes para diferentes contextos de 
+   igualdade.
+
+2. Tratamento apropriado de exceções, garantindo que todas as situações 
+   de erro fossem adequadamente capturadas e comunicadas ao usuário de 
+   forma clara.
+
+3. Manutenção da consistência entre a interface gráfica e o modelo de 
+   dados, especialmente durante operações que modificam várias entidades 
+   ao mesmo tempo, como a exclusão de uma turma que possui alunos 
+   matriculados.
+
+4. Implementação da estrutura de dados personalizada (ListaDeAlunos) 
+   para garantir eficiência nas operações de inclusão, remoção e 
+   ordenação.
+
+-----------------------------------------------------------------
+MELHORIAS IMPLEMENTADAS EM RELAÇÃO À VERSÃO ANTERIOR
+-----------------------------------------------------------------
+
+Nesta versão 1.0.1 do sistema, foram implementadas importantes melhorias
+em relação à versão anterior:
+
+1. Prevenção de Cadastros Duplicados:
+   - Na primeira versão, permitíamos propositalmente o cadastro de alunos 
+     duplicados para fins de demonstração dos problemas que isso poderia 
+     causar.
+   - Na versão atual, implementamos um mecanismo robusto utilizando o 
+     método equals() e tratamento de exceções (ExcecaoDeAlunoJaExistente) 
+     para impedir cadastros duplicados, garantindo a integridade dos dados.
+   - O sistema agora verifica a existência de CPFs iguais antes de 
+     permitir novos cadastros, exibindo mensagens claras ao usuário.
+
+2. Correção de Problemas de Encoding:
+   - A versão anterior apresentava problemas com caracteres especiais e 
+     acentuação, resultando em exibição incorreta de textos em diferentes 
+     partes do sistema.
+   - Corrigimos esses problemas padronizando o encoding em todo o código, 
+     garantindo que caracteres especiais, como acentos e cedilhas, sejam 
+     exibidos corretamente em todas as interfaces do sistema.
+   - Foram também revisados todos os textos de mensagens de erro e 
+     feedback ao usuário para garantir clareza e legibilidade.
+
+3. Outras Melhorias:
+   - Aprimoramento da interface gráfica para torná-la mais intuitiva
+   - Otimização da estrutura de dados para melhor desempenho
+   - Implementação de validações mais rigorosas para garantir a qualidade 
+     dos dados inseridos
+   - Melhor feedback ao usuário através de mensagens mais informativas
+
+Essas melhorias demonstram a evolução do sistema e o compromisso da 
+equipe com a qualidade do software, aplicando conceitos importantes 
+de engenharia de software e programação orientada a objetos.
+
+-----------------------------------------------------------------
+CONCLUSÃO
+-----------------------------------------------------------------
+
+O projeto SGE v1.0.1 atende completamente os requisitos especificados 
+para a segunda etapa do Projeto Integrador III-B. A implementação da 
+sobrescrita dos métodos toString() e equals() nas classes principais, 
+junto com o mecanismo de tratamento de exceções, demonstra uma 
+compreensão adequada dos conceitos de orientação a objetos em Java.
+
+A arquitetura do sistema é robusta e extensível, permitindo futuras 
+melhorias e a adição de novas funcionalidades. A interface gráfica 
+intuitiva facilita a interação dos usuários com o sistema.
+
+A colaboração entre os membros da equipe foi essencial para o sucesso 
+do projeto, com cada integrante contribuindo em áreas específicas 
+conforme suas habilidades e conhecimentos.
+
+-----------------------------------------------------------------
+CONSIDERAÇÕES FINAIS
+-----------------------------------------------------------------
+
+O desenvolvimento deste projeto proporcionou uma valiosa oportunidade 
+de aplicação prática dos conceitos aprendidos durante o curso, 
+especialmente os relacionados à programação orientada a objetos, 
+herança, polimorfismo e tratamento de exceções.
+
+A equipe considera que os objetivos foram alcançados com sucesso, 
+resultando em um sistema funcional que demonstra adequadamente os 
+requisitos solicitados para esta etapa do projeto integrador.
+
+===============================================================
+        Universidade de Caxias do Sul - UCS
+        Curso de Análise e Desenvolvimento de Sistemas
+        Projeto Integrador III-B - 2025
+=============================================================== 
